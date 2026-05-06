@@ -1,16 +1,56 @@
-# React + Vite
+# FreeAPI Authentication App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React + Vite frontend for the FreeAPI authentication module. It implements a full session-based auth flow with signup, login, logout, and current-user profile display.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Register new users
+- Login with username and password
+- Load the current logged-in user from the API session
+- Logout and clear the active session
+- Protected home screen
+- Inline success and error messages
+- Loading states for API requests
 
-## React Compiler
+## API Endpoints
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The app uses the following FreeAPI endpoints:
 
-## Expanding the ESLint configuration
+- `POST https://api.freeapi.app/api/v1/users/register`
+- `POST https://api.freeapi.app/api/v1/users/login`
+- `POST https://api.freeapi.app/api/v1/users/logout`
+- `GET https://api.freeapi.app/api/v1/users/current-user`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The frontend is configured to send requests with credentials so the API session cookie can be used across requests.
+
+## Project Structure
+
+- `src/pages/Signup.jsx` - registration form
+- `src/pages/Login.jsx` - login form
+- `src/pages/Home.jsx` - protected dashboard and profile view
+- `src/context/AuthContext.jsx` - shared auth state and session loading
+- `src/services/api.js` - Axios client
+- `src/services/authService.js` - auth API helpers
+
+## Getting Started
+
+1. Install dependencies:
+
+```bash
+bun install
+```
+
+2. Start the development server:
+
+```bash
+bun run dev
+```
+
+3. Open the app in the local URL shown by Vite.
+
+## Usage Notes
+
+- Signup requires `username`, `email`, `password`, and `role`.
+- Login uses `username` and `password`.
+- After login, the app fetches the current session user and redirects to the protected home page.
+- Logout clears the session and returns to the login screen.
